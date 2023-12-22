@@ -37,4 +37,6 @@ let source = """
 let json = try! JSON.Value.parse(source: source)
 print("json")
 let choices = json["choices"]?.asArray ?? []
-print(choices)
+for choice in choices {
+    print(choice.stringify())
+}
