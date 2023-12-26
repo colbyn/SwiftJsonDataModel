@@ -8,8 +8,8 @@
 import Foundation
 
 extension JSON.Value {
-    public static func parse(source data: String) throws -> Self {
-        let data = data.data(using: data.fastestEncoding)!
+    public static func parse(source: String) throws -> Self {
+        let data = source.data(using: source.fastestEncoding)!
         let value = try JSONSerialization.jsonObject(with: data, options: [.json5Allowed])
         return Self.from(any: value)
     }
@@ -17,6 +17,14 @@ extension JSON.Value {
         let value = try JSONSerialization.jsonObject(with: data, options: [.json5Allowed])
         return Self.from(any: value)
     }
+    public static func parse(data: Data) throws -> Self {
+        let value = try JSONSerialization.jsonObject(with: data, options: [.json5Allowed])
+        return Self.from(any: value)
+    }
+     public static func parse(read url: URL) throws -> Self {
+         let data = try Data(contentsOf: url)
+         return try Self.parse(data: data)
+     }
 }
 
 extension JSON.Value {
